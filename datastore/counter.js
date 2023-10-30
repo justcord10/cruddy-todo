@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const sprintf = require('sprintf-js').sprintf;
 
+//should not use this???
 var counter = 0;
 
 // Private helper functions ////////////////////////////////////////////////////
@@ -38,13 +39,23 @@ const writeCounter = (count, callback) => {
 
 // Public API - Fix this function //////////////////////////////////////////////
 
-exports.getNextUniqueId = () => {
-  counter = counter + 1;
-  return zeroPaddedNumber(counter);
-};
 
+exports.getNextUniqueId = (callback) => {
+  // counter = counter + 1;
+  readCounter((err, count) => {
+    writeCounter(count + 1, callback);
+  });
+  // return zeroPaddedNumber(counter);
+};
 
 
 // Configuration -- DO NOT MODIFY //////////////////////////////////////////////
 
 exports.counterFile = path.join(__dirname, 'counter.txt');
+
+// var persistentCounter = 0;
+// readCounter((err, num) => {
+//   persistentCounter = num + 1;
+// });
+
+// return setTimeOut(() => { zeroPaddedNumber(persistentCounter); }, 2000);
