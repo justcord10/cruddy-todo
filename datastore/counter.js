@@ -3,7 +3,7 @@ const path = require('path');
 const sprintf = require('sprintf-js').sprintf;
 
 //should not use this???
-var counter = 0;
+//var counter = 0;
 
 // Private helper functions ////////////////////////////////////////////////////
 
@@ -53,9 +53,3 @@ exports.getNextUniqueId = (callback) => {
 
 exports.counterFile = path.join(__dirname, 'counter.txt');
 
-// var persistentCounter = 0;
-// readCounter((err, num) => {
-//   persistentCounter = num + 1;
-// });
-
-// return setTimeOut(() => { zeroPaddedNumber(persistentCounter); }, 2000);
