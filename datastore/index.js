@@ -47,13 +47,21 @@ exports.readOne = (id, callback) => {
 };
 
 exports.update = (id, text, callback) => {
-  var item = items[id];
-  if (!item) {
-    callback(new Error(`No item with id: ${id}`));
-  } else {
-    items[id] = text;
-    callback(null, { id, text });
-  }
+  fs.readdir(exports.dataDir, (err, list) => {
+    if (err) {
+      throw ('error');
+    } else if ( !list.includes(`${id}.txt`) ) {
+      callback(new Error('id not in list'));
+    } else {
+      fs.writeFile(`${exports.dataDir}/${id}.txt`, text, (err) => {
+        if (err) {
+          throw ('error thrown in updating todo in file');
+        } else {
+          callback(null, { id, text });
+        }
+      });
+    }
+  });
 };
 
 exports.delete = (id, callback) => {
