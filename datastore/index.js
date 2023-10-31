@@ -9,15 +9,15 @@ var items = {};
 
 exports.create = (text, callback) => {
   //reading and writing a file,
-  var id;
-  counter.getNextUniqueId((err, counterString) => {
-    if (err) {
-      throw (err);
-    } else {
-      id = counterString;
-      items[id] = text;
-      callback(null, { id, text });
-    }
+  // var id;
+  counter.getNextUniqueId((err, id) => {
+    fs.writeFile(`${exports.dataDir}/${id}.txt`, text, (err) => {
+      if (err) {
+        throw ('error thrown in saving todo in file');
+      } else {
+        callback(null, { id, text });
+      }
+    });
   });
 };
 
